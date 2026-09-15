@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Te amo, Mary Jane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-bg: #ffe3ee;
+    --pink-deep: #ffbcd7;
+    --bow-red: #ff5d8f;
+    --bow-red-dark: #e13f72;
+    --cream: #fffaf7;
+    --whisker: #f6a8c4;
+    --gold: #ffd166;
+    --text-dark: #7a3b52;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background:
+      radial-gradient(circle at 15% 20%, #fff1f6 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, #ffd7e8 0%, transparent 45%),
+      var(--pink-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* polka dot texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(var(--pink-deep) 2px, transparent 2.5px);
+    background-size: 34px 34px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 1;
+    width: min(92vw, 620px);
+    padding: 3.2rem 2.2rem 2.6rem;
+    text-align: center;
+  }
+
+  /* ---- Kitty face ---- */
+  .kitty {
+    width: 168px;
+    margin: 0 auto 0.6rem;
+    position: relative;
+  }
+
+  .kitty svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(225, 63, 114, 0.18)); }
+
+  .kitty-bow {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(6px) rotate(-6deg);
+    width: 64px;
+    z-index: 2;
+  }
+
+  /* ---- Message ---- */
+  .eyebrow {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--bow-red-dark);
+    letter-spacing: 0.02em;
+    margin: 1.6rem 0 0.4rem;
+  }
+
+  .headline {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--bow-red-dark);
+    text-shadow: 0 3px 0 rgba(255,255,255,0.6);
+  }
+
+  .headline .name {
+    color: var(--bow-red);
+    position: relative;
+    display: inline-block;
+  }
+
+  .subtext {
+    margin: 1.1rem auto 0;
+    max-width: 40ch;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #a15a76;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 1.8rem 0 0;
+    color: var(--bow-red);
+    font-size: 1.1rem;
+  }
+  .divider span:nth-child(2){
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    width: 40px;
+    height: 2px;
+    background: var(--whisker);
+    border-radius: 2px;
+  }
+
+  /* ---- floating hearts & bows ---- */
+  .floaters {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .floater {
+    position: absolute;
+    bottom: -60px;
+    opacity: 0.85;
+    animation: rise linear infinite;
+  }
+
+  @keyframes rise {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floater { animation: none; display: none; }
+  }
+
+  .card-footer {
+    margin-top: 2.2rem;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 0.85rem;
+    color: var(--whisker);
+  }
+</style>
+</head>
+<body>
+
+  <div class="floaters" id="floaters"></div>
+
+  <main class="stage">
+    <div class="kitty" aria-hidden="true">
+      <svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg">
+        <!-- ears -->
+        <path d="M38 58 C 16 22, 55 3, 72 42 Z" fill="#ffffff" stroke="#f2c6d7" stroke-width="3"/>
+        <path d="M162 58 C 184 22, 145 3, 128 42 Z" fill="#ffffff" stroke="#f2c6d7" stroke-width="3"/>
+        <!-- face (rounder & plumper) -->
+        <ellipse cx="100" cy="107" rx="84" ry="72" fill="#ffffff" stroke="#f2c6d7" stroke-width="3"/>
+        <!-- cheek blush -->
+        <ellipse cx="58" cy="128" rx="14" ry="9" fill="#ffc9dd" opacity="0.8"/>
+        <ellipse cx="142" cy="128" rx="14" ry="9" fill="#ffc9dd" opacity="0.8"/>
+        <!-- eyes (bigger, with sparkle) -->
+        <ellipse cx="72" cy="103" rx="6.5" ry="8.5" fill="#3a2a2f"/>
+        <ellipse cx="128" cy="103" rx="6.5" ry="8.5" fill="#3a2a2f"/>
+        <circle cx="74.5" cy="99" r="1.8" fill="#ffffff"/>
+        <circle cx="130.5" cy="99" r="1.8" fill="#ffffff"/>
+        <!-- nose -->
+        <ellipse cx="100" cy="120" rx="6.5" ry="5" fill="#ffd166"/>
+        <!-- whiskers left -->
+        <line x1="8" y1="100" x2="55" y2="98" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="6" y1="114" x2="55" y2="114" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="10" y1="128" x2="55" y2="122" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- whiskers right -->
+        <line x1="192" y1="100" x2="145" y2="98" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="194" y1="114" x2="145" y2="114" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="190" y1="128" x2="145" y2="122" stroke="#f2b8cd" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <svg class="kitty-bow" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 20 C 20 6, 2 6, 2 20 C 2 34, 20 34, 28 20 Z" fill="#ff5d8f" stroke="#e13f72" stroke-width="2"/>
+        <path d="M32 20 C 40 6, 58 6, 58 20 C 58 34, 40 34, 32 20 Z" fill="#ff5d8f" stroke="#e13f72" stroke-width="2"/>
+        <circle cx="30" cy="20" r="6" fill="#e13f72"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow">para a Mary Jane (a minha Mary jane)</p>
+    <h1 class="headline">Te amo amorr,<br><span class="name">Mary&nbsp;Jane</span> 🎀</h1>
+    <p class="subtext">Espero que você tenha um ótimo dia amor</p>
+
+    <div class="divider"><span></span><span>feito com carinho</span><span></span></div>
+    <p class="card-footer">🐾 sempre sua 🐾</p>
+  </main>
+
+<script>
+  // Gently spawn floating hearts & bows for a soft, non-intrusive ambience.
+  const container = document.getElementById('floaters');
+  const symbols = ['💗', '🎀', '💕'];
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    const COUNT = 14;
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('div');
+      el.className = 'floater';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 14 + Math.random() * 18;
+      el.style.fontSize = size + 'px';
+      el.style.left = Math.random() * 100 + 'vw';
+      const duration = 9 + Math.random() * 10;
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random() * duration) + 's';
+      container.appendChild(el);
+    }
+  }
+</script>
+
+</body>
+</html>
